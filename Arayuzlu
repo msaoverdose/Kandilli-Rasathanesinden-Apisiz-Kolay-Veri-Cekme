@@ -1,0 +1,67 @@
+import requests 
+import time
+from bs4 import BeautifulSoup as bs
+import os 
+import folium
+
+site = 'http://www.koeri.boun.edu.tr/scripts/lst0.asp'
+
+def temizle():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def program():
+    istek = requests.get(site)
+    soup = bs(istek.text, "html.parser")
+    tablo = soup.find('pre')
+    satirlar = tablo.text.split('\n')
+
+    depremler = []
+
+    for satir in satirlar[7:30]:
+        if satir.strip():
+            bilgiler = satir.split()
+            if len(bilgiler) >= 1:
+                yer = bilgiler[8]
+                buyukluk = bilgiler[6]  
+                konumN = bilgiler[2] 
+                konumE = bilgiler[3] 
+                
+                deprem_bilgisi = {
+                    
+                    "Yer": yer,
+                    "Buyukluk": buyukluk,
+                    "Koordinat": [konumN, konumE]
+                }
+                depremler.append(deprem_bilgisi)
+                
+                print(f"Yer: {yer} Büyüklük: {buyukluk} KonumEnlem: {konumN} KonumBoylam: {konumE} ")
+                print("\n")
+            else:
+                print("Eksik bilgi ")
+
+    return depremler
+
+def harita_olustur(depremler):
+    harita = folium.Map(location=[39.9334, 32.8597], zoom_start=6)
+
+    for deprem in depremler:
+        popup_str = f"{deprem['Yer']}\nBuyukluk: {deprem['Buyukluk']}"
+        if float(deprem['Buyukluk'])<=3:
+                folium.Marker(
+                location=deprem["Koordinat"],
+                popup=popup_str,
+                icon=folium.Icon(color="red", icon="info-sign")
+                ).add_to(harita)
+        else:
+                folium.Marker(
+                location=deprem["Koordinat"],
+                popup=popup_str,
+                icon=folium.Icon(color="lightgray", icon="info-sign")
+                ).add_to(harita)   
+
+    harita.save("dunya_haritasi.html")
+
+
+temizle()
+depremler = program()
+harita_olustur(depremler)
