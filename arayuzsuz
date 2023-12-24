@@ -17,7 +17,7 @@ def deprem():
         if satir.strip():
             bilgiler = satir.split()
             if len(bilgiler) >= 1:
-                yer = bilgiler[8]
+                yer = bilgiler[8] #Farklı liste elemanları farklı bilgileri temsil eder. Tarih[0] Saat[1] Enlem(N)[2] Boylam(E)[3] Derinlik(km)[4] MD[5] ML[6] Mw[7] Yer[8]
                 buyukluk = bilgiler[6]  
                 konumN = bilgiler[2] 
                 konumE = bilgiler[3] 
