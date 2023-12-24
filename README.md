@@ -1,7 +1,8 @@
 # Kandilli-Rasathanesinden-Apisiz-Kolay-Veri-Cekme
 Kandilli Rasathanesinden api olmadan kolay veriyi bu yöntemle çekebilirsiniz. Ticari amaç yoktur. Ticari amaç güdenlerin Kandilli Rasathanesinden izin alması gerekmektedir.
 
-#Örnek Görseller
+
+#ÖRNEK GÖRSELLER
 ##Arayüzlü
 <img width="339" alt="Screenshot 2023-12-24 at 18 52 17" src="https://github.com/dmsa2003/Kandilli-Rasathanesinden-Apisiz-Kolay-Veri-Cekme/assets/49487581/714200ea-9f6d-4279-9a24-a07fdcb9f4d6">
 
