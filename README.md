@@ -6,4 +6,8 @@ Arayüzlü
 
 <img width="1483" alt="Screenshot 2023-12-24 at 18 52 05" src="https://github.com/dmsa2003/Kandilli-Rasathanesinden-Apisiz-Kolay-Veri-Cekme/assets/49487581/beb5e9c0-d2e0-46cc-9d88-0157a74d3e74">
 Arayüzsüz Veri Çekme
+
+
+
+
 <img width="499" alt="Screenshot 2023-12-24 at 18 52 42" src="https://github.com/dmsa2003/Kandilli-Rasathanesinden-Apisiz-Kolay-Veri-Cekme/assets/49487581/f4a9d6ef-a001-4c39-ae9e-704d3bfc1d62">
