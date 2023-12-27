@@ -1,0 +1,68 @@
+import requests
+from bs4 import BeautifulSoup as bs
+import time
+import os
+import PySimpleGUI as sg
+
+
+
+
+
+sg.theme("LightBrown")
+
+def temizle():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def deprem():
+    site = 'http://www.koeri.boun.edu.tr/scripts/lst0.asp'
+    istek = requests.get(site)
+    soup = bs(istek.text, 'html.parser')
+    listelemesayisi = 100
+
+    earthquake_list = []
+
+    tablo = soup.find('pre')
+
+    satirlar = tablo.text.split('\n')
+
+    for satir in satirlar[7:(7+listelemesayisi)]:
+        if satir.strip():
+            bilgiler = satir.split()
+            if len(bilgiler) >= 1:
+                yer1 = bilgiler[8]
+                yer = bilgiler[9]
+                if str(yer) == str("ilksel"):
+                    yer = "Yer bilgisi alinamadi "
+                buyukluk = bilgiler[6]
+                konumN = bilgiler[2]
+                konumE = bilgiler[3]
+                Saat = bilgiler[1]
+                Tarih = bilgiler[2]
+                earthquake_info = f"Tarihn{Tarih} Saat: {Saat} Yer: {yer1} Sehir: {yer} Büyüklük: {buyukluk} Koordinat{konumN, konumE} "
+                earthquake_list.append(earthquake_info)
+            else:
+                print("Eksik bilgi ")
+
+    return earthquake_list
+
+layout = [
+    [sg.Text("Super Astra", font=("Helvetica", 18), justification='center')],
+    [sg.Listbox(values=[], size=(100, 30), key='-LIST-', enable_events=True)],
+    [sg.Button('Refresh'), sg.Button('Exit')]
+]
+
+window = sg.Window('Earthquake Information', layout)
+
+while True:
+    temizle()
+    event, values = window.read(timeout=30000) 
+    if event == sg.WINDOW_CLOSED or event == 'Exit':
+
+        theme_name_list = sg.theme_list() 
+        print(theme_name_list) 
+        break
+    elif event == 'Refresh':
+        earthquake_info_list = deprem()
+        window['-LIST-'].update(earthquake_info_list)
+
+window.close()
